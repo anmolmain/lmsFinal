@@ -1,0 +1,81 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div  class="mrq">
+  <h1 style="text-align: center; font-weight: 800;"  class="hoverMarquee pt-2" data-aos="fade-up" data-aos-duration="1000">Top pics from latest books</h1>
+  <marquee scrollamount="15" behavior="" direction="" onmouseover="pauseMarquee()" onmouseout="resumeMarquee()" id="myMarquee">
+    <ul  class="marq mt-0 hoverMarquee">
+      {% for book in books %}
+        <li>
+          <p>{{ book.book_name }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </marquee>
+</div>
+</div>
+  <div data-aos="fade-up" data-aos-duration="400" class="container mt-2">
+    <div  class="row">
+      <div  class="col-md-6">
+        <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Library Image"  class="img-fluid rounded" />
+      </div>
+      <div  class="col-md-6" >
+        <h1 data-aos="fade-up" data-aos-duration="400">Welcome to our Library</h1>
+        <p  class="lead" >Discover a world of books at our library. We offer a wide range of books across various genres for you to explore and enjoy.</p>
+        <p>Whether you're looking for fiction, non-fiction, academic, or children's books, we have something for everyone.</p>
+        <a href="/login"  class="btn btn-primary" data-aos="fade-up" data-aos-duration="600">Get Started</a>
+      </div>
+    </div>
+  <style>
+    .marq {
+      list-style-type: none;
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+    }
+    .marq li p {
+      font-size: 50px;
+      font-weight: 900;
+      margin-left: 10vw;
+    }
+    .mrq{
+      width: 100vw;
+      background-color:  #1b1b1b;
+    }
+  </style>
+  <script>
+    var marquee = document.getElementById('myMarquee')
+    
+    function pauseMarquee() {
+      marquee.stop()
+    }
+    
+    function resumeMarquee() {
+      marquee.start()
+    }
+    // Check the saved theme preference
+    if (localStorage.getItem('theme') === 'dark') {
+      enableDarkMode()
+    }
+    
+    $('#darkModeSwitcher').on('change', function () {
+      if ($(this).is(':checked')) {
+        enableDarkMode()
+        localStorage.setItem('theme', 'dark') // Save theme preference
+      } else {
+        enableLightMode()
+        localStorage.setItem('theme', 'light') // Save theme preference
+      }
+    })
+    
+    function enableDarkMode() {
+      $('body').addClass('dark-theme')
+    }
+    
+    function enableLightMode() {
+      $('body').removeClass('dark-theme')
+    }
+  </script>
+{% endblock %}

@@ -1,0 +1,248 @@
+----------------------------------------base.html----------------------------------------
+This Django template file is for a Library Management System web application. Here's a summary of what's happening in the file:
+
+1. **Static Files and Metadata**:
+   - The `{% load static %}` tag is used to load static files.
+   - The HTML document starts with metadata and includes Bootstrap 5 for styling and JavaScript functionalities.
+
+2. **Styling**:
+   - Custom styles are defined for various elements like navbar links, navbar brand, body, and dark mode.
+   - Dark mode styles are defined with classes for body and nested elements to switch the theme.
+
+3. **Navigation Bar**:
+   - A Bootstrap navbar is set up with a brand name "Library Management System".
+   - There's a dark mode switcher (`<input>`) on the navbar to toggle between light and dark modes.
+   - Navigation links are conditionally rendered based on whether the user is authenticated or not.
+     - If the user is not authenticated, "Login" and "Register" links are displayed.
+     - If the user is authenticated, "Home", "Issue Book", "Return Book", "Issue History", and "Logout" links are displayed.
+   - A welcome message is displayed with the user's first name if they are authenticated.
+
+4. **Content Block**:
+   - The `{% block content %}` and `{% endblock %}` tags define a content block where child templates can inject their content. This allows for dynamic content in different views/pages.
+
+5. **Dark Mode JavaScript**:
+   - The script checks the user's dark mode preference saved in the `localStorage`.
+   - If dark mode is enabled, it sets the body's class to `dark-theme` and checks the dark mode switch.
+   - Event listener is added to the dark mode switcher input to toggle between light and dark modes.
+   - Two functions, `enableDarkMode()` and `enableLightMode()`, are defined to enable dark and light modes respectively.
+
+Overall, this template provides a responsive navigation bar with conditional links based on user authentication status. It also includes dark mode functionality with JavaScript to toggle between light and dark themes and remembers the user's preference using `localStorage`.
+
+
+----------------------------------------home.html----------------------------------------
+This Django template extends from the `base.html` template you provided earlier. Here's a summary of what's happening in this child template:
+
+1. **JavaScript Libraries**:
+   - jQuery is imported from a CDN for DOM manipulation and event handling.
+
+2. **Extending Base Template**:
+   - `{% extends 'base.html' %}` indicates that this template inherits from the `base.html` template, meaning it will include the base structure and styling from `base.html`.
+
+3. **Static Files**:
+   - The `{% load static %}` tag is used to load static files.
+
+4. **Content Block**:
+   - Inside the `{% block content %}` and `{% endblock %}` tags, the main content of this page is defined.
+
+5. **Main Content**:
+   - A container with two columns:
+     - **Left Column**: Contains an image of books.
+     - **Right Column**: Contains a welcome message, a brief description, and a "Get Started" button.
+   - A section below the container displays a marquee of book names. The marquee scrolls horizontally, showcasing book names fetched from the `books` context variable.
+  
+6. **Styling**:
+   - Custom styles for the marquee and other elements are defined.
+   - The `.mrq` class sets the background color to gray.
+
+7. **JavaScript**:
+   - JavaScript functions `pauseMarquee()` and `resumeMarquee()` are defined to pause and resume the marquee respectively.
+   - The script checks the user's dark mode preference saved in `localStorage` and applies the dark mode theme if it's set to 'dark'.
+   - Event listener is added to the dark mode switcher input to toggle between light and dark modes.
+   - Two functions, `enableDarkMode()` and `enableLightMode()`, are defined to enable dark and light modes respectively.
+
+In summary, this child template renders the main content of the library's landing page, displaying an image, a welcome message, and a marquee of book names. It inherits the base structure and dark mode functionality from `base.html` and adds its specific content and styling. The JavaScript code adds functionality to pause and resume the marquee and handle the dark mode toggle.
+
+
+
+----------------------------------------history.html----------------------------------------
+This Django template extends the `base.html` template, adding a page to display a user's past book history. Here's a breakdown of the content and functionality:
+
+1. **JavaScript Libraries**:
+   - jQuery is imported for DOM manipulation and event handling.
+
+2. **Extending Base Template**:
+   - `{% extends 'base.html' %}` indicates that this template inherits from the `base.html` template.
+
+3. **Content Block**:
+   - Inside the `{% block content %}` and `{% endblock %}` tags, the main content of this page is defined.
+
+4. **Book History Display**:
+   - A container displays a title "Your past book history".
+   - A table is used to display the user's book history with columns for Book Name, Author Name, Issue Date, and Return Date.
+   - A loop `{% for book in books %}` iterates over the `books` context variable to display each book's details in the table.
+
+5. **Pagination**:
+   - Below the table, pagination links are provided to navigate between pages of book history.
+   - The previous and next page links are displayed based on whether there are previous or next pages available.
+   - The current page is highlighted with an "active" class.
+
+6. **Styling**:
+   - Custom styles are defined to enhance the appearance and user experience of the page.
+   - Styles for table headers, table rows on hover, and pagination are specified.
+   - The active page link in pagination is styled with a blue background and white text.
+   - Pagination links and their hover effects are styled with blue colors.
+
+In summary, this template renders a user's past book history in a table format with pagination to navigate through the pages of history. It inherits the base structure, dark mode functionality, and styling from `base.html` and adds its specific content and pagination functionality. The JavaScript and styling enhance the user interface and interactivity of the page.
+
+
+
+
+----------------------------------------issue_item.html----------------------------------------
+This Django template extends the `base.html` template to display a page where users can browse available books and search for specific books. Here's a breakdown of the content and functionality:
+
+1. **JavaScript Libraries**:
+   - jQuery is imported for DOM manipulation and event handling.
+
+2. **Extending Base Template**:
+   - `{% extends 'base.html' %}` indicates that this template inherits from the `base.html` template.
+
+3. **Flash Messages**:
+   - The template loops through `messages` to display any flash messages (e.g., success messages, error messages) at the center of the page using Bootstrap's alert component.
+
+4. **Book Search**:
+   - A search input field allows users to search for books by book name, author name, or subject.
+   - The search functionality is implemented using jQuery. As the user types in the search input, the table rows are filtered to display only the rows that match the search criteria.
+
+5. **Book Table**:
+   - A table displays the available books with columns for Book Name, Author Name, Subject, and an "Issue" button.
+   - Each book in `books` is displayed as a row in the table.
+   - A form with a hidden input for `book_id` and an "Issue" button is used to allow users to issue a book.
+
+6. **JavaScript**:
+   - The script listens for keyup events on the search input and filters the table rows based on the search input's value.
+
+7. **Styling**:
+   - Custom styles are defined to enhance the appearance and user experience of the page.
+   - Styles for table headers, table rows on hover, buttons, and search input are specified.
+   - Buttons are styled with primary and secondary colors from Bootstrap.
+   - Hover and focus effects are added to buttons for better interactivity.
+
+In summary, this template provides a user-friendly interface for browsing and searching available books. Users can search for books using the search input, view available books in a table format, and issue a book by clicking the "Issue" button next to each book. The template inherits the base structure, dark mode functionality, and styling from `base.html` and adds its specific content, search functionality, and interactivity.
+
+
+
+
+
+----------------------------------------login.html----------------------------------------
+This Django template renders a login page for the Library Management System. Here's a breakdown of the content and functionality:
+
+1. **Extending Base Template**:
+   - `{% extends 'base.html' %}` indicates that this template inherits from the `base.html` template.
+
+2. **Login Form**:
+   - A card-based layout is used to display the login form at the center of the page.
+   - The card header displays the title "Login To Library" with a blue background.
+   - The login form contains fields for username and password.
+     - `username`: Text input for the username.
+     - `password`: Password input for the password.
+   - The form action is set to `{% url 'login' %}`, which will handle the form submission in the backend.
+   - CSRF token is included for security.
+   - A "Login" button allows users to submit the form.
+  
+3. **Registration and Admin Links**:
+   - Below the login form, there are links for:
+     - Registering a new account: `{% url 'register' %}`
+     - Logging in as an admin: `/admin`
+   - These links are styled as simple text links.
+
+4. **Error Messages**:
+   - If there are any error messages (e.g., invalid username or password), they are displayed below the form inside the card footer using Bootstrap's alert component with a red background.
+
+5. **Styling**:
+   - Bootstrap classes and custom styles are used to style the card, form, input fields, buttons, and links.
+   - The form is centered on the page using Bootstrap's `justify-content-center` class.
+   - The card has a width of `col-md-6` to make it responsive.
+   - The "Login" button and the links are styled with Bootstrap's primary color.
+   - Error messages are centered and styled with a red background.
+
+In summary, this template provides a clean and user-friendly login page for the Library Management System. Users can enter their username and password to log in, with validation and error messages provided below the form. Links to registration and admin login are also available for users who want to register or log in as an admin. The template inherits the base structure and styling from `base.html` and adds its specific content and functionality for user authentication.
+
+
+
+
+
+----------------------------------------register.html----------------------------------------
+This Django template renders a registration page for the Library Management System. Here's a breakdown of the content and functionality:
+
+1. **Extending Base Template**:
+   - `{% extends 'base.html' %}` indicates that this template inherits from the `base.html` template.
+
+2. **Registration Form**:
+   - A card-based layout is used to display the registration form at the center of the page.
+   - The card header displays the title "Register To Library" with a blue background.
+   - The registration form contains fields for first name, last name, username, email, password, and password confirmation.
+     - `first_name`: Text input for the user's first name.
+     - `last_name`: Text input for the user's last name.
+     - `username`: Text input for the desired username.
+     - `email`: Email input for the user's email address.
+     - `password1`: Password input for the desired password.
+     - `password2`: Password input to confirm the password.
+   - The form action is set to `{% url 'register' %}`, which will handle the form submission in the backend.
+   - CSRF token is included for security.
+
+3. **Error Messages**:
+   - If there are any error messages (e.g., username already taken, password mismatch), they are displayed inside the card body using Bootstrap's alert component with a red background.
+   
+4. **Login Link**:
+   - Below the registration form, there's a link for users who are already registered to log in: `<a href="/login" class="text-decoration-none">Already a user? Login here.</a>`
+
+5. **Styling**:
+   - Bootstrap classes and custom styles are used to style the card, form, input fields, buttons, and links.
+   - The form is centered on the page using Bootstrap's `justify-content-center` class.
+   - The card has a width of `col-md-8` to make it responsive.
+   - The "Register" button is styled with Bootstrap's primary color.
+   - Error messages are centered and styled with a red background.
+
+In summary, this template provides a user-friendly registration page for the Library Management System. Users can fill out the registration form with their personal details to create a new account. Validation is performed on the backend to ensure that the entered data is valid, and error messages are displayed if there are any issues. A link to the login page is also provided for users who are already registered. The template inherits the base structure and styling from `base.html` and adds its specific content and functionality for user registration.
+
+
+
+
+----------------------------------------return_item.html----------------------------------------
+This Django template displays a list of books that a user has issued from the library. Users can also search for specific books using a search input. Here's a breakdown of the content and functionality:
+
+1. **JavaScript Libraries**:
+   - jQuery is imported for DOM manipulation and event handling.
+
+2. **Extending Base Template**:
+   - `{% extends 'base.html' %}` indicates that this template inherits from the `base.html` template.
+
+3. **Flash Messages**:
+   - Error or success messages are displayed at the center of the page using Bootstrap's alert component.
+
+4. **Search Input**:
+   - A search input field allows users to search for books by book name or author name.
+   - The search functionality is implemented using jQuery. As the user types in the search input, the table rows are filtered to display only the rows that match the search criteria.
+
+5. **Issued Books Table**:
+   - A table displays the books that the user has issued with columns for Book Name, Author Name, and a "Return" button.
+   - Each book in `books` is displayed as a row in the table.
+   - A form with a hidden input for `book_id` and a "Return" button is used to allow users to return a book.
+
+6. **Dark/Light Mode Switcher**:
+   - A switcher with the id `themeSwitcher` allows users to toggle between dark and light modes.
+   - When dark mode is enabled, the background, text color, table background, and button colors are adjusted to dark colors.
+   - When light mode is enabled, the colors are adjusted back to light colors.
+
+7. **JavaScript**:
+   - jQuery scripts handle the search functionality and theme switching.
+   - The search script filters table rows based on the search input's value.
+   - The theme switcher script toggles between dark and light modes by adjusting CSS styles.
+
+8. **Styling**:
+   - Custom styles are defined to enhance the appearance and user experience of the page.
+   - Styles for table headers, table rows on hover, buttons, and search input are specified.
+   - Button colors, hover effects, and focus effects are defined for both primary and secondary buttons.
+   - Dark mode and light mode styles adjust background colors, text colors, and other elements to create a consistent appearance in both modes.
+
+In summary, this template provides a user-friendly interface for viewing and managing issued books. Users can search for books, view the list of books they have issued, and return books using the "Return" button. The template also includes a theme switcher to toggle between dark and light modes, providing users with a personalized viewing experience. The template inherits the base structure and styling from `base.html` and adds its specific content and functionality for managing issued books and theme switching.

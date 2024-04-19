@@ -1,0 +1,140 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+{% extends 'base.html' %}
+{% block content %}
+  {% for message in messages %}
+    <div style="text-align: center;" class=" dalert alert alert-{{ message.tags }} rounded-0" role="alert">{{ message }}</div>
+  {% endfor %}
+
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">Browse from the range of available books</h1>
+    <ul class="filterBook m-0 p-0">
+      <li><button class="btn btn-primary" onclick="searchBook('Entertainment')">Entertainment</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Historical')">Historical</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Funny')">Funny</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Mystery')">Mystery</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Fiction')">Fiction</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Fantasy')">Fantasy</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Poetry')">Poetry</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Comics')">Comics</button></li>
+      <li><button class="btn btn-primary" onclick="searchBook('Thriller')">Thriller</button></li>
+  </ul>  
+    <div class="row mb-3">
+      <div class="col-md-6 mx-auto mt-4">
+        <input style="color: black; !important" id="search" type="search" class="form-control form-control-lg rounded" placeholder="Search Book" aria-label="Search" aria-describedby="search-addon" autocomplete="off" />
+    </div>
+    </div>
+
+    <div class="table-responsive" data-aos="fade-up" data-aos-duration="400">
+      <table class="table table-hover" style="text-align: center;">
+        <thead class="thead-dark">
+          <tr class="row p-2">
+            <th scope="col" class="col-1">Book Pic</th>
+            <th scope="col" class="col-3">Book Name</th>
+            <th scope="col" class="col-3">Author Name</th>
+            <th scope="col" class="col-3">Subject</th>
+            <th scope="col" class="col-2">Issue</th>
+          </tr>
+        </thead>
+        <tbody id="table_data" class="center-content">
+          {% for book in books %}
+            <tr class="row p-2">
+              <td class="col-1">
+                <img style="width: 100%; border-radius:0px;" src="{{ book.book_pic_url }}" alt="" />
+              </td>
+              <td class="col-3">{{ book.book_name }}</td>
+              <td class="col-3">{{ book.author_name }}</td>
+              <td class="col-3">{{ book.subject }}</td>
+              <td class="col-2">
+                <form action="{% url 'issue' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="book_id" value="{{ book.id }}" />
+                  <button type="submit" class="btn btn-primary"><b>Issue</b></button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+<script>
+  function searchBook(value) {
+    document.getElementById("search").value = value;
+    document.getElementById("search").focus();
+
+}
+</script>
+  <script>
+    $(document).ready(function () {
+      $('#search').on('keyup', function () {
+        var value = $(this).val().toLowerCase()
+        $('#table_data tr').filter(function () {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        })
+      })
+    })
+  </script>
+
+  <style>
+    .filterBook{
+      list-style-type: none;
+      justify-content: space-between;
+      display: flex;
+      flex-direction: row;
+    }
+    .center-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Horizontal center alignment */
+    }
+    
+    .center-content tr {
+      display: flex;
+      justify-content: center; /* Horizontal center alignment */
+    }
+    
+    .center-content td,
+    .center-content th {
+      display: flex;
+      justify-content: center; /* Horizontal center alignment */
+      align-items: center; /* Vertical center alignment */
+    }
+    
+    .center-content img {
+      max-width: 100%; /* Ensure images don't exceed their container width */
+    }
+    
+    .table thead th {
+      border-top: none;
+    }
+    
+    .table tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+    }
+    
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    
+    .btn-secondary {
+      background-color: #6c757d;
+      border-color: #6c757d;
+    }
+    
+    .btn-primary:hover,
+    .btn-secondary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+    
+    .btn-primary:focus,
+    .btn-secondary:focus {
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+    }
+  </style>
+{% endblock %}

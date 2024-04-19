@@ -1,0 +1,12 @@
+step-1 : Download and extract files in lms-main
+step-2 : Open pathlab-main in vs code
+step-3 : Open terminal using ctrl + ` 
+step-4 : confirm python is installed by command -> python 
+	 if not installed intall it. if installed press exit() to exit python terminal
+step-5 : run command in terminal -> pip install django
+step 6 : run command in terminal -> pyhhon manage.py runserver            and open the link from terminal
+ 
+
+
+To create or change superuser/admin : 
+run this command -> python manage.py createsuperuser

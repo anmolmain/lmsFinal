@@ -1,0 +1,85 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5 darkTable">
+    <h1 class="text-center mb-4" data-aos="fade-up" data-aos-duration="400">Your past book history</h1>
+    <div class="container" data-aos="fade-up" data-aos-duration="400">
+      <table class="table ">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Book Name</th>
+            <th scope="col">Author Name</th>
+            <th scope="col">Issue Date</th>
+            <th scope="col">Return Deadline</th>
+            <th scope="col">Return Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for book in books %}
+            <tr>
+              <td>{{ book.book_id.book_name }}</td>
+              <td>{{ book.book_id.author_name }}</td>
+              <td>{{ book.issue_date }}</td>
+              <td>{{ book.return_deadline }}</td>
+              <td>{{ book.return_date }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="mx-auto" style="width: 200px">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          {% if books.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ books.previous_page_number }}" tabindex="-1" aria-disabled="true">&laquo;</a>
+            </li>
+          {% endif %}
+          {% for i in 'x'|ljust:books.paginator.num_pages %}
+            <li class="page-item {% if forloop.counter == books.number %}active{% endif %}">
+              {% if books.paginator.num_pages > 1 %}
+                <a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a>
+              {% endif %}
+            </li>
+          {% endfor %}
+          {% if books.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?page={{ books.next_page_number }}">&raquo;</a>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+  <style>
+    .table thead th {
+      border-top: none;
+    }
+    
+    .table tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .pagination {
+      justify-content: center;
+    }
+
+    .pagination .page-item.active .page-link {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .pagination .page-item.active .page-link{
+      color: #ffffff;
+
+    }
+
+    .pagination .page-link {
+      color: #007bff;
+    }
+
+    .pagination .page-link:hover {
+      color: #0056b3;
+    }
+  </style>
+{% endblock %}

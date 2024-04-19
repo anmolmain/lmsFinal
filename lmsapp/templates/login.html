@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+  <br />
+  <body style="background-image: url('https://images.pexels.com/photos/1290141/pexels-photo-1290141.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover; background-repeat: no-repeat; background-position: center;">
+    <div class="container mt-5" >
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <div class="card" data-aos="fade-up" data-aos-duration="400">
+            <div class="card-header bg-primary text-white">
+              <h3 class="text-center">Login To Library</h3>
+            </div>
+            <div class="card-body">
+              <form action="{% url 'login' %}" method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                  <label for="username" class="form-label"><b>Username</b></label>
+                  <input type="text" name="username" id="username" class="form-control" placeholder="Username" required />
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label"><b>Password</b></label>
+                  <input type="password" name="password" id="password" class="form-control" placeholder="Password" required />
+                </div>
+                <div class="d-grid gap-2">
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+              </form>
+              <div class="text-center mt-3">
+                <a href="/register" class="text-decoration-none">Don't have an account? Register here.</a><br />
+                <a href="/admin" class="text-decoration-none">Login as admin</a>
+              </div>
+            </div>
+            <div class="card-footer">
+              {% for message in messages %}
+                <div style="text-align: center;" class="alert alert-danger" role="alert">{{ message }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <style>
+    .card{
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    backdrop-filter: blur(20px); /* Blurred background */
+    border-radius: 15px; /* Rounded corners */
+    border: 1px solid rgba(255, 255, 255, 0.18); /* Border with transparency */
+    padding: 20px; /* Padding around content */
+    color: black;
+    }
+  </style>
+{% endblock %}

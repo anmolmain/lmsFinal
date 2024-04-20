@@ -2,31 +2,115 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div  class="mrq">
-  <h1 style="text-align: center; font-weight: 800;"  class="hoverMarquee pt-2" data-aos="fade-up" data-aos-duration="1000">Top pics from latest books</h1>
-  <marquee scrollamount="15" behavior="" direction="" onmouseover="pauseMarquee()" onmouseout="resumeMarquee()" id="myMarquee">
-    <ul  class="marq mt-0 hoverMarquee">
-      {% for book in books %}
-        <li>
-          <p>{{ book.book_name }}</p>
-        </li>
-      {% endfor %}
-    </ul>
-  </marquee>
-</div>
-</div>
-  <div data-aos="fade-up" data-aos-duration="400" class="container mt-2">
-    <div  class="row">
-      <div  class="col-md-6">
-        <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Library Image"  class="img-fluid rounded" />
-      </div>
-      <div  class="col-md-6" >
-        <h1 data-aos="fade-up" data-aos-duration="400">Welcome to our Library</h1>
-        <p  class="lead" >Discover a world of books at our library. We offer a wide range of books across various genres for you to explore and enjoy.</p>
-        <p>Whether you're looking for fiction, non-fiction, academic, or children's books, we have something for everyone.</p>
-        <a href="/login/"  class="btn btn-primary" data-aos="fade-up" data-aos-duration="600">Get Started</a>
+  <div class="mrq">
+    <h1 style="text-align: center; font-weight: 800;" class="hoverMarquee pt-2" data-aos="fade-up" data-aos-duration="1000">Top pics from latest books</h1>
+    <marquee scrollamount="15" onmouseover="pauseMarquee()" onmouseout="resumeMarquee()" id="myMarquee">
+      <ul class="marq mt-0 hoverMarquee">
+        {% for book in books %}
+          <li>
+            <p>{{ book.book_name }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </marquee>
+  </div>
+
+  {% if not user.is_authenticated %}
+    <div data-aos="fade-up" data-aos-duration="400" class="container mt-2">
+      <div class="row">
+        <div class="col-md-6">
+          <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Library Image" class="img-fluid rounded" />
+        </div>
+        <div class="col-md-6">
+          <h1 data-aos="fade-up" data-aos-duration="400">Welcome to our Library</h1>
+          <p class="lead">Discover a world of books at our library. We offer a wide range of books across various genres for you to explore and enjoy.</p>
+          <p>Whether you're looking for fiction, non-fiction, academic, or children's books, we have something for everyone.</p>
+          <a href="/login/" class="btn btn-primary" data-aos="fade-up" data-aos-duration="600">Get Started</a>
+        </div>
       </div>
     </div>
+  {% else %}
+    <section class="container-fluid p-5" data-aos="fade-up" data-aos-duration="400" >
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Welcome to Our Library</h1>
+          <p class="lead">Welcome to our library, your gateway to knowledge and imagination. Dive into our vast collection of books, spanning genres and eras, waiting to transport you to new worlds. Whether you're seeking information or inspiration, our library is here to enrich your mind and soul. Happy reading.</p>
+          <a href="/issue/" class="btn btn-primary">Browse collection</a>
+        </div>
+        <div class="col-md-6">
+          <img src="https://images.pexels.com/photos/1370295/pexels-photo-1370295.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Library Image" class="img-fluid rounded" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="container-fluid p-5" data-aos="fade-up" data-aos-duration="400" >
+      <h2 class="text-center mb-4">Key Features</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <img src="https://images.pexels.com/photos/19582452/pexels-photo-19582452/free-photo-of-close-up-of-books-on-a-bookshelf.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Feature Image" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title darkModeTitle">Book Management</h5>
+              <p class="card-text darkModeTitle">Easily add, update, and manage your book collection.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img src="https://images.pexels.com/photos/2249063/pexels-photo-2249063.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Feature Image" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title darkModeTitle">Member Management</h5>
+              <p class="card-text darkModeTitle">Manage members, track borrowing history, and more.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <img src="https://images.pexels.com/photos/207636/pexels-photo-207636.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Feature Image" class="card-img-top" />
+            <div class="card-body">
+              <h5 class="card-title darkModeTitle">Search &amp; Filter</h5>
+              <p class="card-text darkModeTitle">Effortlessly find books and members with advanced search and filter options.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="container-fluid p-5" data-aos="fade-up" data-aos-duration="400" >
+      <h2 class="text-center mb-4">What Our Users Say</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text darkModeTitle">"This library system has made managing our library so much easier!"</p>
+              <p class="text-muted darkModeTitle">- Jane Doe</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text darkModeTitle">"A great tool for both librarians and members to have a deep dive in ocean of knowledge."</p>
+              <p class="text-muted darkModeTitle">- John Smith</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-body">
+              <p class="card-text darkModeTitle">"I love the user-friendly interface and powerful features."</p>
+              <p class="text-muted darkModeTitle">- Emily Brown</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+  <footer class="bg-dark text-white text-center p-3" >
+    <p>&copy; 2024 Library Management System. All rights reserved.</p>
+  </footer>
   <style>
     .marq {
       list-style-type: none;
@@ -40,11 +124,12 @@
       font-weight: 900;
       margin-left: 10vw;
     }
-    .mrq{
+    .mrq {
       width: 100vw;
-      background-color:  #1b1b1b;
+      background-color: #1b1b1b;
     }
   </style>
+
   <script>
     var marquee = document.getElementById('myMarquee')
     
@@ -55,6 +140,7 @@
     function resumeMarquee() {
       marquee.start()
     }
+    
     // Check the saved theme preference
     if (localStorage.getItem('theme') === 'dark') {
       enableDarkMode()

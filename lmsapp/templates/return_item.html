@@ -10,9 +10,15 @@
     <br />
     <h1 class="text-center mb-4">Books you have issued</h1>
     <br />
-    <div class="col-md-6 mx-auto">
-      <input style="color: black;" id="search" type="search" class="form-control form-control-lg rounded" autocomplete="off" placeholder="Search Book" aria-label="Search" aria-describedby="search-addon" />
-    </div>
+    <div class="col-md-8 mx-auto">
+      <div class="row mb-3">
+        <div class="col-md-8 mx-auto mt-4">
+          <div class="input-group">
+            <input style="color: black; !important" id="search" type="search" class="form-control form-control-lg rounded" placeholder="Search Book" aria-label="Search" aria-describedby="search-addon" autocomplete="off" />
+            <button class="btn btn-primary" id="searchBtn">Search</button>
+          </div>
+        </div>
+      </div>    </div>
   </center>
   
   <br />
@@ -80,7 +86,34 @@
       }
     });
   </script>
+<script>
+  
+<script>
+  function searchBook(value) {
+    document.getElementById("search").value = value;
+    document.getElementById("search").focus();
+  }
 
+  $(document).ready(function () {
+    $('#search').on('keyup', function () {
+      var value = $(this).val().toLowerCase();
+      filterTable(value);
+    });
+
+    $('#searchBtn').click(function () {
+      var value = $('#search').val().toLowerCase();
+      filterTable(value);
+    });
+
+    function filterTable(value) {
+      $('#table_data tr').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    }
+  });
+</script>
+
+</script>
   <style>
     .center-content {
       display: flex;
